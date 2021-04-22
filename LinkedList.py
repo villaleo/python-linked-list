@@ -1,6 +1,6 @@
 # -----------------------------------------
 # Author: Leonardo Villalobos
-# Date: 4/17/2021
+# Date: 4/21ß/2021
 # Description: Construct a linked list data
 # structure class with various methods.
 # -----------------------------------------
@@ -166,7 +166,7 @@ class LinkedList:
         current = self.first
 
         while current != None:
-            temp.append(current.value)
+            temp.append(current)
             current = current.nextNode
         return temp
 
@@ -175,20 +175,15 @@ class LinkedList:
         Reverses the linked list.
         """
         if self.__isEmpty():
-            raise TypeError("Cannot reverse empty linked list.")
-        if self.count == 1:
-            return
+            return None
+        previous = self.first
+        current = self.first.nextNode
+        while current != None:
+            n = current.nextNode
+            current.nextNode = previous
+            previous = current
+            current = n
 
-        track = self.last
-        prev = self.__getPrevious(track)
-
-        while prev != None:
-            self.addLast(prev)
-            prev = self.__getPrevious(prev)
-
-        prev = self.first
-
-        while self.first != track:
-            self.first = prev.nextNode
-            prev.nextNode = None
-            prev = self.first
+        self.last = self.first
+        self.last.nextNode = None
+        self.first = previous
