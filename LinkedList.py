@@ -187,3 +187,34 @@ class LinkedList:
         self.last = self.first
         self.last.nextNode = None
         self.first = previous
+
+    def getKthNodeFromEnd(self, k: int) -> nd.Node:
+        """
+        Returns the `k`th node from the end of the linked list.
+
+        + `k: int` -- the index from the end of the linked list.
+        """
+        if k <= 0:
+            raise TypeError("k must be a positive integer.")
+        if self.__isEmpty():
+            if k == 1:
+                raise TypeError("Cannot grab 1st node. Linked list is empty.")
+            else:
+                raise TypeError(
+                    f"Cannot grab {k}th node. Linked list is empty."
+                )
+        if k == 1:
+            return self.last.value
+        if k > self.count:
+            raise IndexError("'k' out of bounds.")
+
+        target = self.first
+        end = self.first
+        counter = 0
+
+        while end != self.last:
+            end = end.nextNode
+            if counter < self.size() - k:
+                target = target.nextNode
+            counter += 1
+        return target
